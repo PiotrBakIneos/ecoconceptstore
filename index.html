@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoConceptStore — Organiczne kosmetyki dla rodziny</title>
+  <meta name="description" content="Czyste, organiczne kosmetyki dla dorosłych i dzieci. Certyfikowane składniki z UE. Dołącz do listy i dowiedz się pierwsza o premierze.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --marina: #4A7FB5;
+      --marina-dark: #2D5F8E;
+      --teal: #2E8B7A;
+      --teal-light: #3aaa96;
+      --musk: #E8935A;
+      --cloud: #F5F3EE;
+      --cloud-dark: #EAE7E0;
+      --text-dark: #1A2B2A;
+      --text-mid: #4A5568;
+      --text-light: #718096;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cloud);
+      color: var(--text-dark);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(245,243,238,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(46,139,122,0.12);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo svg { width: 36px; height: 44px; }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .logo-text .brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: 1px;
+    }
+
+    .logo-text .sub {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      color: var(--musk);
+      text-transform: uppercase;
+    }
+
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--marina);
+      text-decoration: none;
+      border: 1px solid var(--marina);
+      padding: 8px 20px;
+      border-radius: 50px;
+      transition: all 0.2s;
+    }
+
+    .nav-cta:hover { background: var(--marina); color: white; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 100px 80px 60px;
+      gap: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(74,127,181,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 60px;
+      width: 350px; height: 350px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(46,139,122,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-left { position: relative; z-index: 1; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--teal);
+      border: 1px solid var(--teal);
+      padding: 6px 14px;
+      border-radius: 50px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--teal);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(42px, 5vw, 68px);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--text-dark);
+      margin-bottom: 24px;
+      animation: fadeUp 0.7s ease 0.1s both;
+    }
+
+    h1 .accent { color: var(--teal); }
+    h1 .accent2 { color: var(--marina); }
+
+    .hero-desc {
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--text-mid);
+      margin-bottom: 40px;
+      max-width: 440px;
+      animation: fadeUp 0.7s ease 0.2s both;
+    }
+
+    /* ── FORM ── */
+    .signup-box {
+      background: white;
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: 0 2px 40px rgba(26,43,42,0.08);
+      animation: fadeUp 0.7s ease 0.3s both;
+      position: relative;
+      z-index: 1;
+    }
+
+    .signup-box h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .signup-box p {
+      font-size: 14px;
+      color: var(--text-light);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      color: var(--text-mid);
+      margin-bottom: 6px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--cloud-dark);
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: var(--text-dark);
+      background: var(--cloud);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .form-group input:focus {
+      border-color: var(--teal);
+      background: white;
+    }
+
+    .form-group input::placeholder { color: var(--text-light); }
+
+    .btn-primary {
+      width: 100%;
+      padding: 14px;
+      background: var(--teal);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 6px;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-primary:hover { background: var(--teal-light); transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+
+    .form-note {
+      font-size: 11px;
+      color: var(--text-light);
+      text-align: center;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    /* hero right visual */
+    .hero-right {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .visual-stack {
+      position: relative;
+      width: 340px;
+      height: 420px;
+    }
+
+    .visual-card {
+      position: absolute;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .vc1 {
+      width: 200px; height: 260px;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--marina) 100%);
+      top: 0; left: 20px;
+      transform: rotate(-6deg);
+    }
+
+    .vc2 {
+      width: 180px; height: 220px;
+      background: white;
+      border: 1px solid var(--cloud-dark);
+      top: 60px; right: 0;
+      transform: rotate(4deg);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    }
+
+    .vc3 {
+      width: 160px; height: 180px;
+      background: var(--musk);
+      bottom: 20px; left: 50px;
+      transform: rotate(-3deg);
+      opacity: 0.9;
+    }
+
+    .vc-inner {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .vc-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .vc1 .vc-label, .vc3 .vc-label { color: rgba(255,255,255,0.9); }
+    .vc2 .vc-label { color: var(--teal); }
+
+    .vc-sub {
+      font-size: 10px;
+      margin-top: 6px;
+      letter-spacing: 1px;
+      opacity: 0.8;
+    }
+
+    .vc1 .vc-sub, .vc3 .vc-sub { color: white; }
+    .vc2 .vc-sub { color: var(--text-light); }
+
+    /* ── FEATURES ── */
+    .features {
+      padding: 80px 80px;
+      background: white;
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .features-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+
+    .features-header p {
+      font-size: 16px;
+      color: var(--text-light);
+      font-weight: 300;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .feature-item {
+      text-align: center;
+      padding: 32px 20px;
+      border-radius: 16px;
+      background: var(--cloud);
+      transition: transform 0.2s;
+    }
+
+    .feature-item:hover { transform: translateY(-4px); }
+
+    .feature-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      margin: 0 auto 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .fi-green { background: rgba(46,139,122,0.12); }
+    .fi-blue  { background: rgba(74,127,181,0.12); }
+    .fi-musk  { background: rgba(232,147,90,0.12); }
+
+    .feature-item h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+
+    .feature-item p {
+      font-size: 14px;
+      color: var(--text-light);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ── STORY ── */
+    .story {
+      padding: 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .story-visual {
+      background: linear-gradient(135deg, var(--marina) 0%, var(--teal) 100%);
+      border-radius: 24px;
+      height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .story-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: white;
+      text-align: center;
+      padding: 40px;
+      line-height: 1.4;
+      opacity: 0.95;
+    }
+
+    .story-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .story-text p {
+      font-size: 15px;
+      color: var(--text-mid);
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+
+    .story-text .highlight {
+      color: var(--teal);
+      font-weight: 500;
+    }
+
+    /* ── BOTTOM CTA ── */
+    .bottom-cta {
+      padding: 80px;
+      text-align: center;
+      background: var(--text-dark);
+    }
+
+    .bottom-cta h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 16px;
+    }
+
+    .bottom-cta p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+
+    .cta-form {
+      display: flex;
+      gap: 12px;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    .cta-form input {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: 10px;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      outline: none;
+    }
+
+    .cta-form input::placeholder { color: rgba(255,255,255,0.4); }
+    .cta-form input:focus { background: rgba(255,255,255,0.15); }
+
+    .cta-form button {
+      padding: 14px 24px;
+      background: var(--musk);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .cta-form button:hover { background: #d4814a; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 28px 80px;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    footer .f-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 1px;
+    }
+
+    footer p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    footer a {
+      font-size: 12px;
+      color: var(--teal);
+      text-decoration: none;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; gap: 40px; }
+      .hero-right { display: none; }
+      .features { padding: 60px 24px; }
+      .features-grid { grid-template-columns: 1fr; gap: 16px; }
+      .story { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
+      .story-visual { height: 220px; }
+      .bottom-cta { padding: 60px 24px; }
+      .cta-form { flex-direction: column; }
+      footer { flex-direction: column; gap: 12px; padding: 24px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo">
+      <svg viewBox="0 0 36 44" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 40 Q2 22 10 8 Q22 18 20 40Z" fill="#2E8B7A"/>
+        <path d="M18 40 Q12 26 18 14 Q28 22 26 40Z" fill="#4A7FB5" opacity="0.8"/>
+        <path d="M26 40 Q20 30 26 20 Q34 26 32 40Z" fill="#E8935A" opacity="0.85"/>
+      </svg>
+      <div class="logo-text">
+        <span class="brand">EcoConcept</span>
+        <span class="sub">Store</span>
+      </div>
+    </a>
+    <a href="#signup" class="nav-cta">Zapisz się</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="badge">
+        <div class="badge-dot"></div>
+        Premiera · Czerwiec 2026
+      </div>
+      <h1>
+        Kosmetyki czyste<br>
+        jak <span class="accent">natura</span><br>
+        na którą <span class="accent2">zasługujesz</span>
+      </h1>
+      <p class="hero-desc">
+        Organiczne balsamy, kremy i pielęgnacja dla całej rodziny — w tym dla dzieci.
+        Certyfikowane składniki z UE, zero kompromisów w składzie.
+      </p>
+    </div>
+
+    <div class="hero-right">
+      <div id="signup" class="signup-box">
+        <h2>Bądź pierwsza/y</h2>
+        <p>Dołącz do listy i dowiedz się o premierze, zanim inni. Pierwsze 50 osób otrzyma ofertę early bird.</p>
+
+        <div class="form-group">
+          <label>Imię</label>
+          <!-- ZAMIEŃ ACTION na swój link z Mailerlite -->
+          <input type="text" name="name" placeholder="Twoje imię" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="twoj@email.com" required>
+        </div>
+
+        <!-- WAŻNE: zamień href na link do Twojego formularza Mailerlite -->
+        <button class="btn-primary" onclick="handleSignup(event)">
+          Zapisz mnie na premierę →
+        </button>
+        <p class="form-note">Bez spamu. Tylko ważne informacje o premierze. Możesz się wypisać w każdej chwili.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="features-header">
+      <h2>Dlaczego EcoConceptStore?</h2>
+      <p>Bo skład kosmetyków to nie powinna być zagadka kryminalna</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon fi-green">🌿</div>
+        <h3>Certyfikowane składniki</h3>
+        <p>Tylko producenci z UE z pełną dokumentacją. Każdy składnik z potwierdzonym pochodzeniem.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon fi-blue">🧒</div>
+        <h3>Bezpieczne dla dzieci</h3>
+        <p>Zero SLS, parabenów, sztucznych zapachów. Pełna lista INCI przy każdym produkcie.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon fi-musk">✦</div>
+        <h3>Transparentny skład</h3>
+        <p>Mówimy wprost co jest w środku i dlaczego. Bez ukrytych składników, bez greenwashingu.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="story">
+    <div class="story-visual">
+      <div class="story-quote">
+        "Zaczęłam szukać bezpiecznych kosmetyków dla mojego dziecka — i nie mogłam znaleźć nic, czemu mogłabym w pełni zaufać."
+      </div>
+    </div>
+    <div class="story-text">
+      <h2>Historia, która stoi za marką</h2>
+      <p>
+        EcoConceptStore powstał z frustracji. Przeglądanie składów, porównywanie certyfikatów,
+        szukanie rzetelnych producentów — to zajmuje godziny. I nie powinno.
+      </p>
+      <p>
+        Postanowiliśmy zrobić to za Was. <span class="highlight">Weryfikujemy producentów, sprawdzamy dokumentację
+        i dobieramy produkty, za które możemy ręczyć.</span> Żebyście Wy nie musieli.
+      </p>
+      <p>
+        Każdy produkt w naszym sklepie przeszedł przez nasze ręce — dosłownie.
+      </p>
+    </div>
+  </section>
+
+  <!-- BOTTOM CTA -->
+  <section class="bottom-cta">
+    <h2>Gotowa/y na czysty skład?</h2>
+    <p>Zapisz się i dowiedz się o premierze przed wszystkimi innymi.</p>
+    <div class="cta-form">
+      <input type="email" id="cta-email" placeholder="Twój adres email">
+      <!-- ZAMIEŃ na swój link Mailerlite -->
+      <button onclick="handleCTASignup()">Zapisuję się</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="f-logo">ECOCONCEPTSTORE</div>
+    <p>© 2026 EcoConceptStore. Wszelkie prawa zastrzeżone.</p>
+    <a href="mailto:office@ecoconceptstore.com">office@ecoconceptstore.com</a>
+  </footer>
+
+  <script>
+    // TYMCZASOWA LOGIKA - zamień na embed Mailerlite
+    function handleSignup(e) {
+      e.preventDefault();
+      const btn = e.target;
+      btn.textContent = '✓ Zapisana/y!';
+      btn.style.background = '#4A7FB5';
+      // TU WSTAW: integrację z Mailerlite API lub przekierowanie na formularz
+      // Przykład: window.location.href = 'https://landing.mailerlite.com/twoj-link';
+    }
+
+    function handleCTASignup() {
+      const email = document.getElementById('cta-email').value;
+      if (!email) return;
+      alert('Dziękujemy! Damy znać jak tylko ruszymy.');
+      // TU WSTAW: integrację z Mailerlite
+    }
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+
+</body>
+</html>
