@@ -1,721 +1,1378 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EcoConceptStore — Organiczne kosmetyki dla rodziny</title>
-  <meta name="description" content="Czyste, organiczne kosmetyki dla dorosłych i dzieci. Certyfikowane składniki z UE. Dołącz do listy i dowiedz się pierwsza o premierze.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --marina: #4A7FB5;
-      --marina-dark: #2D5F8E;
-      --teal: #2E8B7A;
-      --teal-light: #3aaa96;
-      --musk: #E8935A;
-      --cloud: #F5F3EE;
-      --cloud-dark: #EAE7E0;
-      --text-dark: #1A2B2A;
-      --text-mid: #4A5568;
-      --text-light: #718096;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--cloud);
-      color: var(--text-dark);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 18px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(245,243,238,0.9);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(46,139,122,0.12);
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-    }
-
-    .logo svg { width: 36px; height: 44px; }
-
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.1;
-    }
-
-    .logo-text .brand {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--teal);
-      letter-spacing: 1px;
-    }
-
-    .logo-text .sub {
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 3px;
-      color: var(--musk);
-      text-transform: uppercase;
-    }
-
-    .nav-cta {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--marina);
-      text-decoration: none;
-      border: 1px solid var(--marina);
-      padding: 8px 20px;
-      border-radius: 50px;
-      transition: all 0.2s;
-    }
-
-    .nav-cta:hover { background: var(--marina); color: white; }
-
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding: 100px 80px 60px;
-      gap: 60px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -100px; right: -100px;
-      width: 500px; height: 500px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(74,127,181,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -80px; left: 60px;
-      width: 350px; height: 350px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(46,139,122,0.07) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-left { position: relative; z-index: 1; }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--teal);
-      border: 1px solid var(--teal);
-      padding: 6px 14px;
-      border-radius: 50px;
-      margin-bottom: 28px;
-      animation: fadeUp 0.6s ease both;
-    }
-
-    .badge-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--teal);
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
-    }
-
-    h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(42px, 5vw, 68px);
-      font-weight: 700;
-      line-height: 1.1;
-      color: var(--text-dark);
-      margin-bottom: 24px;
-      animation: fadeUp 0.7s ease 0.1s both;
-    }
-
-    h1 .accent { color: var(--teal); }
-    h1 .accent2 { color: var(--marina); }
-
-    .hero-desc {
-      font-size: 17px;
-      font-weight: 300;
-      line-height: 1.7;
-      color: var(--text-mid);
-      margin-bottom: 40px;
-      max-width: 440px;
-      animation: fadeUp 0.7s ease 0.2s both;
-    }
-
-    /* ── FORM ── */
-    .signup-box {
-      background: white;
-      border-radius: 20px;
-      padding: 36px;
-      box-shadow: 0 2px 40px rgba(26,43,42,0.08);
-      animation: fadeUp 0.7s ease 0.3s both;
-      position: relative;
-      z-index: 1;
-    }
-
-    .signup-box h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 26px;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 6px;
-    }
-
-    .signup-box p {
-      font-size: 14px;
-      color: var(--text-light);
-      margin-bottom: 28px;
-      line-height: 1.5;
-    }
-
-    .form-group {
-      margin-bottom: 14px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      color: var(--text-mid);
-      margin-bottom: 6px;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 1.5px solid var(--cloud-dark);
-      border-radius: 10px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      color: var(--text-dark);
-      background: var(--cloud);
-      transition: border-color 0.2s;
-      outline: none;
-    }
-
-    .form-group input:focus {
-      border-color: var(--teal);
-      background: white;
-    }
-
-    .form-group input::placeholder { color: var(--text-light); }
-
-    .btn-primary {
-      width: 100%;
-      padding: 14px;
-      background: var(--teal);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-      margin-top: 6px;
-      letter-spacing: 0.3px;
-    }
-
-    .btn-primary:hover { background: var(--teal-light); transform: translateY(-1px); }
-    .btn-primary:active { transform: translateY(0); }
-
-    .form-note {
-      font-size: 11px;
-      color: var(--text-light);
-      text-align: center;
-      margin-top: 12px;
-      line-height: 1.5;
-    }
-
-    /* hero right visual */
-    .hero-right {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      justify-content: center;
-    }
-
-    .visual-stack {
-      position: relative;
-      width: 340px;
-      height: 420px;
-    }
-
-    .visual-card {
-      position: absolute;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .vc1 {
-      width: 200px; height: 260px;
-      background: linear-gradient(135deg, var(--teal) 0%, var(--marina) 100%);
-      top: 0; left: 20px;
-      transform: rotate(-6deg);
-    }
-
-    .vc2 {
-      width: 180px; height: 220px;
-      background: white;
-      border: 1px solid var(--cloud-dark);
-      top: 60px; right: 0;
-      transform: rotate(4deg);
-      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
-    }
-
-    .vc3 {
-      width: 160px; height: 180px;
-      background: var(--musk);
-      bottom: 20px; left: 50px;
-      transform: rotate(-3deg);
-      opacity: 0.9;
-    }
-
-    .vc-inner {
-      text-align: center;
-      padding: 20px;
-    }
-
-    .vc-label {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .vc1 .vc-label, .vc3 .vc-label { color: rgba(255,255,255,0.9); }
-    .vc2 .vc-label { color: var(--teal); }
-
-    .vc-sub {
-      font-size: 10px;
-      margin-top: 6px;
-      letter-spacing: 1px;
-      opacity: 0.8;
-    }
-
-    .vc1 .vc-sub, .vc3 .vc-sub { color: white; }
-    .vc2 .vc-sub { color: var(--text-light); }
-
-    /* ── FEATURES ── */
-    .features {
-      padding: 80px 80px;
-      background: white;
-    }
-
-    .features-header {
-      text-align: center;
-      margin-bottom: 56px;
-    }
-
-    .features-header h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 38px;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 12px;
-    }
-
-    .features-header p {
-      font-size: 16px;
-      color: var(--text-light);
-      font-weight: 300;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .feature-item {
-      text-align: center;
-      padding: 32px 20px;
-      border-radius: 16px;
-      background: var(--cloud);
-      transition: transform 0.2s;
-    }
-
-    .feature-item:hover { transform: translateY(-4px); }
-
-    .feature-icon {
-      width: 52px; height: 52px;
-      border-radius: 14px;
-      margin: 0 auto 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-    }
-
-    .fi-green { background: rgba(46,139,122,0.12); }
-    .fi-blue  { background: rgba(74,127,181,0.12); }
-    .fi-musk  { background: rgba(232,147,90,0.12); }
-
-    .feature-item h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--text-dark);
-    }
-
-    .feature-item p {
-      font-size: 14px;
-      color: var(--text-light);
-      line-height: 1.6;
-      font-weight: 300;
-    }
-
-    /* ── STORY ── */
-    .story {
-      padding: 80px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    .story-visual {
-      background: linear-gradient(135deg, var(--marina) 0%, var(--teal) 100%);
-      border-radius: 24px;
-      height: 360px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .story-quote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 28px;
-      font-weight: 600;
-      color: white;
-      text-align: center;
-      padding: 40px;
-      line-height: 1.4;
-      opacity: 0.95;
-    }
-
-    .story-text h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 36px;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 20px;
-      line-height: 1.2;
-    }
-
-    .story-text p {
-      font-size: 15px;
-      color: var(--text-mid);
-      line-height: 1.8;
-      font-weight: 300;
-      margin-bottom: 16px;
-    }
-
-    .story-text .highlight {
-      color: var(--teal);
-      font-weight: 500;
-    }
-
-    /* ── BOTTOM CTA ── */
-    .bottom-cta {
-      padding: 80px;
-      text-align: center;
-      background: var(--text-dark);
-    }
-
-    .bottom-cta h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 42px;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 16px;
-    }
-
-    .bottom-cta p {
-      font-size: 16px;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 40px;
-      font-weight: 300;
-    }
-
-    .cta-form {
-      display: flex;
-      gap: 12px;
-      max-width: 440px;
-      margin: 0 auto;
-    }
-
-    .cta-form input {
-      flex: 1;
-      padding: 14px 20px;
-      border-radius: 10px;
-      border: none;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      background: rgba(255,255,255,0.1);
-      color: white;
-      outline: none;
-    }
-
-    .cta-form input::placeholder { color: rgba(255,255,255,0.4); }
-    .cta-form input:focus { background: rgba(255,255,255,0.15); }
-
-    .cta-form button {
-      padding: 14px 24px;
-      background: var(--musk);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      font-weight: 500;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.2s;
-    }
-
-    .cta-form button:hover { background: #d4814a; }
-
-    /* ── FOOTER ── */
-    footer {
-      padding: 28px 80px;
-      background: #111;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    footer .f-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 14px;
-      font-weight: 700;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: 1px;
-    }
-
-    footer p {
-      font-size: 12px;
-      color: rgba(255,255,255,0.3);
-    }
-
-    footer a {
-      font-size: 12px;
-      color: var(--teal);
-      text-decoration: none;
-    }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav { padding: 16px 24px; }
-      .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; gap: 40px; }
-      .hero-right { display: none; }
-      .features { padding: 60px 24px; }
-      .features-grid { grid-template-columns: 1fr; gap: 16px; }
-      .story { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
-      .story-visual { height: 220px; }
-      .bottom-cta { padding: 60px 24px; }
-      .cta-form { flex-direction: column; }
-      footer { flex-direction: column; gap: 12px; padding: 24px; text-align: center; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="EcoConcept Store — organiczne, certyfikowane, wyselekcjonowane produkty dla Ciebie i Twoich dzieci.">
+<meta property="og:title" content="EcoConcept Store — Organic · Certified · Curated">
+<meta property="og:description" content="Starannie dobrane produkty organiczne. Każdy skład sprawdzony.">
+<title>EcoConcept Store — Organic · Certified · Curated</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --slate:   #8baab5;
+    --sage:    #6d8c5a;
+    --sage-dk: #4f6b40;
+    --sage-lt: #a8c49a;
+    --sage-pl: #e4ede0;
+    --terra:   #b8736a;
+    --terra-dk:#9a5c54;
+    --cream:   #f5f2ed;
+    --linen:   #ede8df;
+    --paper:   #faf8f4;
+    --bark:    #2e2820;
+    --mid:     #5a5048;
+    --soft:    #8a7e72;
+    --white:   #ffffff;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    background: var(--paper);
+    color: var(--bark);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ── GRAIN OVERLAY ── */
+  body::before {
+    content:'';
+    position:fixed; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
+    pointer-events:none; z-index:0;
+  }
+
+  /* ── FADE IN ── */
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(18px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  .fade { opacity:0; animation: fadeUp 0.8s ease forwards; }
+  .fade-1 { animation-delay:0.1s; }
+  .fade-2 { animation-delay:0.25s; }
+  .fade-3 { animation-delay:0.4s; }
+  .fade-4 { animation-delay:0.6s; }
+  .fade-5 { animation-delay:0.8s; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:200;
+    height: 68px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 4vw;
+    background: rgba(245,242,237,0.88);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(109,140,90,0.15);
+    transition: box-shadow 0.3s;
+  }
+
+  nav.scrolled { box-shadow: 0 2px 20px rgba(46,40,32,0.07); }
+
+  .nav-logo img {
+    height: 42px;
+    width: auto;
+    display: block;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content:'';
+    position:absolute; bottom:-3px; left:0; right:0;
+    height:1px; background:var(--sage);
+    transform:scaleX(0); transform-origin:left;
+    transition:transform 0.25s;
+  }
+
+  .nav-links a:hover { color: var(--sage); }
+  .nav-links a:hover::after { transform:scaleX(1); }
+
+  .nav-cta {
+    display: inline-flex; align-items: center; gap:0.5rem;
+    background: var(--sage);
+    color: var(--white);
+    text-decoration: none;
+    padding: 0.55em 1.4em;
+    border-radius: 2px;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-cta:hover { background: var(--sage-dk); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 68px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 3rem 5rem 5vw;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-right {
+    position: relative;
+    background: var(--sage-pl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Organic shape divider */
+  .hero-right::before {
+    content:'';
+    position:absolute;
+    left:-60px; top:0; bottom:0;
+    width: 120px;
+    background: var(--paper);
+    clip-path: polygon(0 0, 60% 0, 100% 50%, 60% 100%, 0 100%);
+    z-index:3;
+  }
+
+  /* Large decorative botanical SVG */
+  .hero-botanical {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem 3rem 4rem;
+  }
+
+  .hero-botanical svg {
+    width: 100%;
+    height: 100%;
+    max-width: 420px;
+    max-height: 520px;
+    opacity: 0.22;
+  }
+
+  /* Small decorative leaves */
+  .deco-leaves {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sage);
+    font-weight: 500;
+    margin-bottom: 1.75rem;
+  }
+
+  .eyebrow-line {
+    display: block;
+    width: 32px; height: 1px;
+    background: var(--sage-lt);
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 4.4rem);
+    font-weight: 300;
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    color: var(--bark);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 strong {
+    font-weight: 500;
+    font-style: italic;
+    color: var(--sage);
+  }
+
+  .hero-lead {
+    font-size: 1.05rem;
+    color: var(--mid);
+    max-width: 42ch;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  /* Pill badges */
+  .hero-badges {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.75rem;
+  }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.35em 0.9em;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  .badge-slate  { background: rgba(139,170,181,0.15); color: var(--slate); }
+  .badge-sage   { background: rgba(109,140,90,0.12); color: var(--sage-dk); }
+  .badge-terra  { background: rgba(184,115,106,0.12); color: var(--terra-dk); }
+
+  .badge-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .badge-slate .badge-dot  { background: var(--slate); }
+  .badge-sage  .badge-dot  { background: var(--sage); }
+  .badge-terra .badge-dot  { background: var(--terra); }
+
+  /* ── HERO FORM ── */
+  .hero-form {
+    background: var(--white);
+    border: 1px solid rgba(109,140,90,0.2);
+    border-top: 3px solid var(--sage);
+    border-radius: 0 0 4px 4px;
+    padding: 1.75rem 2rem 1.5rem;
+    box-shadow: 0 8px 40px rgba(46,40,32,0.08);
+    max-width: 460px;
+  }
+
+  .form-tag {
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sage);
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  .form-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+    line-height: 1.3;
+  }
+
+  .form-sub {
+    font-size: 0.82rem;
+    color: var(--soft);
+    font-style: italic;
+    margin-bottom: 1.2rem;
+  }
+
+  .input-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0;
+    border: 1.5px solid #d8d0c4;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 0.6rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .input-row:focus-within {
+    border-color: var(--sage);
+    box-shadow: 0 0 0 3px rgba(109,140,90,0.1);
+  }
+
+  .email-input {
+    flex: 1;
+    padding: 0.85em 1.1em;
+    border: none;
+    background: var(--cream);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.92rem;
+    color: var(--bark);
+    outline: none;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .email-input::placeholder { color: var(--soft); opacity: 0.7; }
+
+  .btn-sub {
+    padding: 0.85em 1.4em;
+    background: var(--sage);
+    color: var(--white);
+    border: none;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .btn-sub:hover { background: var(--sage-dk); }
+  .btn-sub:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .form-privacy {
+    font-size: 0.72rem;
+    color: var(--soft);
+    text-align: center;
+    font-style: italic;
+  }
+
+  .form-privacy a { color: var(--sage); text-decoration: none; }
+
+  .msg {
+    display: none;
+    padding: 0.8rem 1rem;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    font-weight: 400;
+    margin-top: 0.6rem;
+  }
+
+  .msg.ok  { display:block; background:var(--sage-pl); color:var(--sage-dk); border:1px solid var(--sage-lt); }
+  .msg.err { display:block; background:#fdf0ed; color:var(--terra-dk); border:1px solid #e8c4bb; }
+
+  /* ── 3 PILLARS ── */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--linen);
+    border-bottom: 1px solid var(--linen);
+    background: var(--paper);
+  }
+
+  .pillar {
+    padding: 3.5rem 2.5rem;
+    border-right: 1px solid var(--linen);
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pillar:last-child { border-right: none; }
+  .pillar:hover { background: var(--cream); }
+
+  .pillar-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 1.25rem;
+  }
+
+  .pillar-num {
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+
+  .pillar-1 .pillar-num { color: var(--slate); }
+  .pillar-2 .pillar-num { color: var(--sage); }
+  .pillar-3 .pillar-num { color: var(--terra); }
+
+  .pillar h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .pillar p {
+    font-size: 0.9rem;
+    color: var(--mid);
+    line-height: 1.7;
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 520px;
+  }
+
+  .about-visual {
+    background: var(--sage-pl);
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .about-visual svg {
+    width: 70%;
+    height: 70%;
+    opacity: 0.35;
+  }
+
+  .about-content {
+    padding: 5rem 4rem 5rem 5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .about-content .section-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--sage);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+
+  .about-content .section-tag::before {
+    content:'';
+    display:block;
+    width:20px; height:1px;
+    background: var(--sage-lt);
+  }
+
+  .about-content h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-content h2 em {
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .about-content p {
+    font-size: 0.95rem;
+    color: var(--mid);
+    line-height: 1.8;
+    max-width: 52ch;
+    margin-bottom: 1rem;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--linen);
+  }
+
+  .stat-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--bark);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--soft);
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  /* ── CATEGORIES ── */
+  .categories {
+    padding: 6rem 5vw;
+    background: var(--cream);
+  }
+
+  .section-head {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-head .tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--sage);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-head h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-head p {
+    font-size: 0.95rem;
+    color: var(--mid);
+    max-width: 52ch;
+    margin: 0 auto;
+  }
+
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .cat-card {
+    border: 1px solid var(--linen);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--paper);
+    transition: transform 0.25s, box-shadow 0.25s;
+    cursor: pointer;
+  }
+
+  .cat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(46,40,32,0.1);
+  }
+
+  .cat-visual {
+    aspect-ratio: 4/3;
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .cat-visual svg { width: 55%; height: 55%; }
+
+  .cat-1 .cat-visual { background: rgba(139,170,181,0.18); }
+  .cat-2 .cat-visual { background: rgba(109,140,90,0.14); }
+  .cat-3 .cat-visual { background: rgba(184,115,106,0.14); }
+  .cat-4 .cat-visual { background: rgba(109,140,90,0.08); }
+
+  .cat-body { padding: 1.25rem; }
+
+  .cat-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+
+  .cat-1 .cat-label { color: var(--slate); }
+  .cat-2 .cat-label { color: var(--sage); }
+  .cat-3 .cat-label { color: var(--terra); }
+  .cat-4 .cat-label { color: var(--sage-dk); }
+
+  .cat-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+
+  .cat-desc { font-size: 0.82rem; color: var(--soft); line-height: 1.5; }
+
+  /* ── NEWSLETTER STRIP ── */
+  .nl-strip {
+    background: var(--sage-dk);
+    padding: 6rem 5vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nl-strip::before {
+    content:'';
+    position:absolute;
+    right:-80px; top:-80px;
+    width:360px; height:360px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.05);
+    pointer-events:none;
+  }
+
+  .nl-strip::after {
+    content:'';
+    position:absolute;
+    left:30%; bottom:-100px;
+    width:240px; height:240px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.03);
+    pointer-events:none;
+  }
+
+  .nl-copy .tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--sage-lt);
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .nl-copy h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+
+  .nl-copy h2 em {
+    font-style: italic;
+    color: var(--clay);
+  }
+
+  .nl-copy p {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.75;
+    max-width: 44ch;
+  }
+
+  .nl-form-wrap {
+    position: relative; z-index:1;
+  }
+
+  .nl-perks {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .perk {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .perk-icon {
+    width: 18px; height: 18px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem;
+    margin-top: 2px;
+  }
+
+  .nl-input-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    overflow: hidden;
+    border-radius: 3px;
+    margin-bottom: 0.6rem;
+  }
+
+  .nl-input {
+    padding: 0.9em 1.2em;
+    border: none;
+    background: rgba(255,255,255,0.12);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.92rem;
+    color: var(--white);
+    outline: none;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-right: none;
+    border-radius: 3px 0 0 3px;
+    transition: background 0.2s;
+  }
+
+  .nl-input::placeholder { color: rgba(255,255,255,0.4); }
+  .nl-input:focus { background: rgba(255,255,255,0.18); }
+
+  .nl-btn {
+    padding: 0.9em 1.6em;
+    background: var(--clay);
+    color: var(--white);
+    border: none;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+    border-radius: 0 3px 3px 0;
+  }
+
+  .nl-btn:hover { background: var(--terra-dk); }
+  .nl-btn:disabled { opacity:0.6; cursor:not-allowed; }
+
+  .nl-note { font-size: 0.72rem; color: rgba(255,255,255,0.4); font-style:italic; }
+
+  .nl-msg {
+    display:none;
+    padding:0.75rem 1rem;
+    border-radius:3px;
+    font-size:0.85rem;
+    margin-top:0.6rem;
+  }
+
+  .nl-msg.ok  { display:block; background:rgba(168,196,154,0.25); color:var(--sage-lt); border:1px solid rgba(168,196,154,0.3); }
+  .nl-msg.err { display:block; background:rgba(184,115,106,0.2); color:#e8b5ae; border:1px solid rgba(184,115,106,0.3); }
+
+  /* ── TRUST BAR ── */
+  .trust-bar {
+    background: var(--linen);
+    padding: 1.5rem 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+  }
+
+  .trust-item {
+    display: flex; align-items: center; gap: 0.7rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    font-weight: 500;
+  }
+
+  .trust-item svg { flex-shrink:0; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bark);
+    color: rgba(255,255,255,0.5);
+    padding: 4rem 5vw 2.5rem;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 2rem;
+  }
+
+  .footer-brand img {
+    height: 38px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .footer-brand p {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    max-width: 36ch;
+  }
+
+  .footer-col h4 {
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+  }
+
+  .footer-col ul { list-style:none; }
+  .footer-col ul li { margin-bottom:0.6rem; }
+  .footer-col ul li a {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-col ul li a:hover { color: var(--clay); }
+
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.75rem;
+    flex-wrap: wrap; gap: 1rem;
+  }
+
+  .ai-note {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.05);
+    padding: 0.3em 0.8em;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .hero { grid-template-columns:1fr; min-height: auto; }
+    .hero-right { min-height: 300px; }
+    .hero-left { padding: 4rem 5vw 3rem; }
+    .about { grid-template-columns:1fr; }
+    .about-visual { min-height: 280px; }
+    .about-content { padding: 3.5rem 5vw; }
+    .nl-strip { grid-template-columns:1fr; gap:3rem; padding: 4.5rem 5vw; }
+    .cat-grid { grid-template-columns: repeat(2,1fr); }
+    .footer-top { grid-template-columns:1fr; gap:2rem; }
+    .pillars { grid-template-columns:1fr; }
+    .pillar { border-right:none; border-bottom:1px solid var(--linen); }
+    .pillar:last-child { border-bottom:none; }
+  }
+
+  @media (max-width: 640px) {
+    .nav-links { display:none; }
+    .cat-grid { grid-template-columns:1fr; }
+    .trust-bar { gap:2rem; }
+    .footer-bottom { flex-direction:column; align-items:flex-start; }
+    .about-stats { grid-template-columns:1fr 1fr; }
+  }
+</style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <a href="#" class="logo">
-      <svg viewBox="0 0 36 44" xmlns="http://www.w3.org/2000/svg">
-        <path d="M10 40 Q2 22 10 8 Q22 18 20 40Z" fill="#2E8B7A"/>
-        <path d="M18 40 Q12 26 18 14 Q28 22 26 40Z" fill="#4A7FB5" opacity="0.8"/>
-        <path d="M26 40 Q20 30 26 20 Q34 26 32 40Z" fill="#E8935A" opacity="0.85"/>
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">
+    <img src="data:image/png;base64,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" alt="EcoConcept Store">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#filozofia">Filozofia</a></li>
+    <li><a href="#kategorie">Produkty</a></li>
+    <li><a href="#newsletter">Newsletter</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+  <a href="#newsletter" class="nav-cta">Zapisz się ↗</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="fade fade-1 hero-eyebrow">
+      <span class="eyebrow-line"></span>
+      Organic · Certified · Curated
+    </div>
+
+    <h1 class="fade fade-2">
+      Produkty, które<br>
+      <strong>naprawdę</strong> są tym,<br>
+      za co je uważasz
+    </h1>
+
+    <p class="fade fade-3 hero-lead">
+      EcoConcept Store — starannie wyselekcjonowane produkty organiczne
+      dla Ciebie i Twoich dzieci. Każdy skład sprawdzony. Każda certyfikacja
+      zweryfikowana. Zero kompromisów.
+    </p>
+
+    <div class="fade fade-4 hero-badges">
+      <span class="badge badge-slate"><span class="badge-dot"></span>100% organiczne</span>
+      <span class="badge badge-sage"><span class="badge-dot"></span>Certyfikowane</span>
+      <span class="badge badge-terra"><span class="badge-dot"></span>Ręcznie selekcjonowane</span>
+    </div>
+
+    <div class="fade fade-5 hero-form" id="heroForm">
+      <div class="form-tag">Darmowy przewodnik</div>
+      <div class="form-headline">15 składników, których unikamy</div>
+      <div class="form-sub">Pobierz listę, którą sprawdzamy przed każdym produktem w naszym sklepie.</div>
+
+      <div class="input-row" id="heroInputRow">
+        <input
+          type="email"
+          class="email-input"
+          id="heroEmail"
+          placeholder="Twój adres email"
+          autocomplete="email"
+        />
+        <button class="btn-sub" id="heroBtn" onclick="submitHero()">Pobierz →</button>
+      </div>
+
+      <div class="msg" id="heroMsg"></div>
+      <div class="form-privacy">
+        Bez spamu. Możesz zrezygnować w każdej chwili.
+        <br>Chronimy Twoje dane zgodnie z&nbsp;<a href="#">RODO</a>.
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-botanical fade fade-3">
+      <!-- Large botanical leaf illustration -->
+      <svg viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Main tall center leaf -->
+        <path d="M200 480 C200 480 120 380 110 280 C100 160 160 60 200 20 C240 60 300 160 290 280 C280 380 200 480 200 480Z"
+              fill="#6d8c5a" opacity="0.9"/>
+        <!-- Center vein -->
+        <path d="M200 460 L200 40" stroke="#4f6b40" stroke-width="1.5" opacity="0.4"/>
+        <!-- Side veins -->
+        <path d="M200 200 C200 200 160 185 148 175" stroke="#4f6b40" stroke-width="1" opacity="0.3"/>
+        <path d="M200 200 C200 200 240 185 252 175" stroke="#4f6b40" stroke-width="1" opacity="0.3"/>
+        <path d="M200 260 C200 260 148 240 132 228" stroke="#4f6b40" stroke-width="1" opacity="0.3"/>
+        <path d="M200 260 C200 260 252 240 268 228" stroke="#4f6b40" stroke-width="1" opacity="0.3"/>
+        <path d="M200 320 C200 320 158 302 145 292" stroke="#4f6b40" stroke-width="1" opacity="0.3"/>
+        <path d="M200 320 C200 320 242 302 255 292" stroke="#4f6b40" stroke-width="1" opacity="0.3"/>
+
+        <!-- Left leaf (slate/blue) -->
+        <path d="M120 320 C120 320 55 250 48 180 C42 100 80 48 120 20 C155 48 175 108 165 188 C158 268 120 320 120 320Z"
+              fill="#8baab5" opacity="0.75" transform="rotate(-18, 120, 200)"/>
+        <path d="M120 300 L118 35" stroke="#6a8a9a" stroke-width="1.2" opacity="0.3" transform="rotate(-18, 120, 200)"/>
+
+        <!-- Right leaf (terracotta) -->
+        <path d="M280 320 C280 320 345 250 352 180 C358 100 320 48 280 20 C245 48 225 108 235 188 C242 268 280 320 280 320Z"
+              fill="#b8736a" opacity="0.7" transform="rotate(18, 280, 200)"/>
+        <path d="M280 300 L282 35" stroke="#9a5c54" stroke-width="1.2" opacity="0.3" transform="rotate(18, 280, 200)"/>
+
+        <!-- Scattered small leaves -->
+        <ellipse cx="80" cy="400" rx="18" ry="30" fill="#6d8c5a" opacity="0.25" transform="rotate(-30,80,400)"/>
+        <ellipse cx="320" cy="420" rx="14" ry="24" fill="#8baab5" opacity="0.2" transform="rotate(25,320,420)"/>
+        <ellipse cx="60" cy="160" rx="10" ry="18" fill="#b8736a" opacity="0.18" transform="rotate(-45,60,160)"/>
+        <ellipse cx="340" cy="140" rx="12" ry="20" fill="#6d8c5a" opacity="0.15" transform="rotate(40,340,140)"/>
       </svg>
-      <div class="logo-text">
-        <span class="brand">EcoConcept</span>
-        <span class="sub">Store</span>
-      </div>
-    </a>
-    <a href="#signup" class="nav-cta">Zapisz się</a>
-  </nav>
+    </div>
+  </div>
+</section>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-left">
-      <div class="badge">
-        <div class="badge-dot"></div>
-        Premiera · Czerwiec 2026
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M8 1L9.5 5.5H14.5L10.5 8.5L12 13L8 10L4 13L5.5 8.5L1.5 5.5H6.5L8 1Z" fill="#6d8c5a"/>
+    </svg>
+    Certyfikowane ECOCERT
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <circle cx="8" cy="8" r="6.5" stroke="#8baab5" stroke-width="1.2"/>
+      <path d="M5 8L7 10L11 6" stroke="#8baab5" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    Każdy skład zweryfikowany
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M8 2C5 2 3 5 3 8C3 11 5 14 8 14C11 14 13 11 13 8C13 5 11 2 8 2Z" fill="none" stroke="#b8736a" stroke-width="1.2"/>
+      <path d="M8 5V8.5L10 10" stroke="#b8736a" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    Dostawa InPost w 24h
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M2 8L6 12L14 4" stroke="#6d8c5a" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    Zwrot 30 dni
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M8 1C8 1 2 4 2 9C2 12 4.5 14 8 14C11.5 14 14 12 14 9C14 4 8 1 8 1Z" fill="none" stroke="#8baab5" stroke-width="1.2"/>
+    </svg>
+    Opakowania biodegradowalne
+  </div>
+</div>
+
+<!-- 3 PILLARS -->
+<section class="pillars" id="filozofia">
+  <div class="pillar pillar-1">
+    <svg class="pillar-icon" viewBox="0 0 40 40" fill="none">
+      <ellipse cx="20" cy="22" rx="10" ry="16" fill="none" stroke="#8baab5" stroke-width="1.5"/>
+      <path d="M20 6 C20 6 12 10 12 18 C12 26 16 30 20 38 C24 30 28 26 28 18 C28 10 20 6 20 6Z" fill="#8baab5" opacity="0.2"/>
+      <path d="M20 6 L20 38" stroke="#8baab5" stroke-width="1" opacity="0.5"/>
+    </svg>
+    <div class="pillar-num">01 — Organic</div>
+    <h3>W 100% organiczne</h3>
+    <p>Wyłącznie produkty z certyfikatami organicznymi — ECOCERT, COSMOS lub odpowiednikami. Bez wyjątków, bez kompromisów. Żaden produkt nie trafia do sklepu bez weryfikacji składu.</p>
+  </div>
+  <div class="pillar pillar-2">
+    <svg class="pillar-icon" viewBox="0 0 40 40" fill="none">
+      <path d="M20 4 C12 4 6 10 6 18 C6 26 12 32 20 36 C28 32 34 26 34 18 C34 10 28 4 20 4Z" fill="#6d8c5a" opacity="0.15"/>
+      <path d="M20 4 C12 4 6 10 6 18 C6 26 12 32 20 36 C28 32 34 26 34 18 C34 10 28 4 20 4Z" fill="none" stroke="#6d8c5a" stroke-width="1.5"/>
+      <path d="M13 18L17 22L27 14" stroke="#6d8c5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="pillar-num">02 — Certified</div>
+    <h3>Certyfikowana jakość</h3>
+    <p>Każdy dostawca przechodzi naszą weryfikację: dokumentacja certyfikatów, testy składów przez niezależne laboratoria, regularne audyty. Certyfikat to nie marketing — to zobowiązanie.</p>
+  </div>
+  <div class="pillar pillar-3">
+    <svg class="pillar-icon" viewBox="0 0 40 40" fill="none">
+      <path d="M8 20 C8 20 14 8 20 8 C26 8 32 20 32 20 C32 20 26 32 20 32 C14 32 8 20 8 20Z" fill="none" stroke="#b8736a" stroke-width="1.5"/>
+      <circle cx="20" cy="20" r="4" fill="#b8736a" opacity="0.3"/>
+      <circle cx="20" cy="20" r="4" fill="none" stroke="#b8736a" stroke-width="1.5"/>
+    </svg>
+    <div class="pillar-num">03 — Curated</div>
+    <h3>Ręcznie selekcjonowane</h3>
+    <p>Nie jesteśmy marketplace. Każdy produkt w EcoConcept Store był testowany przez nas osobiście. Sprzedajemy tylko to, z czego sami korzystamy i co polecilibyśmy własnym dzieciom.</p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="about-visual">
+    <svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Large center leaf -->
+      <path d="M150 380 C150 380 80 300 72 200 C64 100 110 40 150 10 C190 40 236 100 228 200 C220 300 150 380 150 380Z"
+            fill="#6d8c5a" opacity="0.9"/>
+      <path d="M150 370 L150 18" stroke="#4f6b40" stroke-width="2" opacity="0.35"/>
+      <path d="M150 180 C150 180 110 165 96 155" stroke="#4f6b40" stroke-width="1.2" opacity="0.3"/>
+      <path d="M150 180 C150 180 190 165 204 155" stroke="#4f6b40" stroke-width="1.2" opacity="0.3"/>
+      <path d="M150 240 C150 240 100 220 84 208" stroke="#4f6b40" stroke-width="1.2" opacity="0.3"/>
+      <path d="M150 240 C150 240 200 220 216 208" stroke="#4f6b40" stroke-width="1.2" opacity="0.3"/>
+
+      <!-- Small accent leaves -->
+      <ellipse cx="60" cy="280" rx="16" ry="28" fill="#8baab5" opacity="0.5" transform="rotate(-30,60,280)"/>
+      <ellipse cx="240" cy="260" rx="14" ry="24" fill="#b8736a" opacity="0.4" transform="rotate(25,240,260)"/>
+      <ellipse cx="50" cy="140" rx="10" ry="18" fill="#6d8c5a" opacity="0.3" transform="rotate(-45,50,140)"/>
+      <ellipse cx="250" cy="160" rx="12" ry="20" fill="#8baab5" opacity="0.25" transform="rotate(35,250,160)"/>
+
+      <!-- Dots -->
+      <circle cx="150" cy="390" r="4" fill="#6d8c5a" opacity="0.6"/>
+      <circle cx="162" cy="390" r="4" fill="#8baab5" opacity="0.6"/>
+      <circle cx="174" cy="390" r="4" fill="#b8736a" opacity="0.6"/>
+    </svg>
+  </div>
+
+  <div class="about-content">
+    <div class="section-tag">Nasza historia</div>
+    <h2>
+      Powstaliśmy,<br>
+      bo <em>sami</em> nie mogli<br>
+      znaleźć tego,<br>
+      czego szukali
+    </h2>
+    <p>
+      EcoConcept Store to odpowiedź na problem, który znamy osobiście —
+      natłok produktów z etykietą „natural" lub „organic", za którą kryją się
+      składy dalekie od obietnicy.
+    </p>
+    <p>
+      Zbudowaliśmy sklep, który działa inaczej: mniejszy asortyment,
+      głębsza weryfikacja, zerowa tolerancja dla greenwashingu.
+      Każdy produkt tutaj przeszedł przez nasze ręce i nasze laboratorium.
+    </p>
+    <div class="about-stats">
+      <div>
+        <div class="stat-val">100%</div>
+        <div class="stat-label">produktów z certyfikatem organicznym</div>
       </div>
-      <h1>
-        Kosmetyki czyste<br>
-        jak <span class="accent">natura</span><br>
-        na którą <span class="accent2">zasługujesz</span>
-      </h1>
-      <p class="hero-desc">
-        Organiczne balsamy, kremy i pielęgnacja dla całej rodziny — w tym dla dzieci.
-        Certyfikowane składniki z UE, zero kompromisów w składzie.
-      </p>
+      <div>
+        <div class="stat-val">0</div>
+        <div class="stat-label">wyjątków od zasady weryfikacji składu</div>
+      </div>
+      <div>
+        <div class="stat-val">15</div>
+        <div class="stat-label">składników, których nigdy nie znajdziesz w naszym sklepie</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories" id="kategorie">
+  <div class="section-head">
+    <div class="tag">Asortyment</div>
+    <h2>Co znajdziesz<br>w EcoConcept Store</h2>
+    <p>Cztery kategorie. Każda z tą samą filozofią: organiczne, certyfikowane, przetestowane.</p>
+  </div>
+
+  <div class="cat-grid">
+    <div class="cat-card cat-1">
+      <div class="cat-visual">
+        <svg viewBox="0 0 80 80" fill="none">
+          <ellipse cx="40" cy="44" rx="18" ry="28" fill="#8baab5" opacity="0.5"/>
+          <path d="M40 16 C30 22 24 34 24 44 C24 54 32 62 40 64 C48 62 56 54 56 44 C56 34 50 22 40 16Z" fill="none" stroke="#8baab5" stroke-width="1.5"/>
+          <path d="M40 16 L40 64" stroke="#8baab5" stroke-width="1.2" opacity="0.4"/>
+        </svg>
+      </div>
+      <div class="cat-body">
+        <div class="cat-label">Kategoria 01</div>
+        <div class="cat-name">Pielęgnacja dzieci</div>
+        <div class="cat-desc">Balsamy, szampony, kremy — tylko bezpieczne składy dla najmłodszych.</div>
+      </div>
     </div>
 
-    <div class="hero-right">
-      <div id="signup" class="signup-box">
-        <h2>Bądź pierwsza/y</h2>
-        <p>Dołącz do listy i dowiedz się o premierze, zanim inni. Pierwsze 50 osób otrzyma ofertę early bird.</p>
-
-        <div class="form-group">
-          <label>Imię</label>
-          <!-- ZAMIEŃ ACTION na swój link z Mailerlite -->
-          <input type="text" name="name" placeholder="Twoje imię" required>
-        </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" name="email" placeholder="twoj@email.com" required>
-        </div>
-
-        <!-- WAŻNE: zamień href na link do Twojego formularza Mailerlite -->
-        <button class="btn-primary" onclick="handleSignup(event)">
-          Zapisz mnie na premierę →
-        </button>
-        <p class="form-note">Bez spamu. Tylko ważne informacje o premierze. Możesz się wypisać w każdej chwili.</p>
+    <div class="cat-card cat-2">
+      <div class="cat-visual">
+        <svg viewBox="0 0 80 80" fill="none">
+          <path d="M40 12 C26 12 16 26 16 40 C16 54 26 68 40 68 C54 68 64 54 64 40 C64 26 54 12 40 12Z" fill="#6d8c5a" opacity="0.2"/>
+          <path d="M40 12 C26 12 16 26 16 40 C16 54 26 68 40 68 C54 68 64 54 64 40 C64 26 54 12 40 12Z" stroke="#6d8c5a" stroke-width="1.5" fill="none"/>
+          <path d="M28 40 C28 40 34 28 40 28 C46 28 52 40 52 40 C52 40 46 52 40 52 C34 52 28 40 28 40Z" fill="#6d8c5a" opacity="0.3"/>
+        </svg>
+      </div>
+      <div class="cat-body">
+        <div class="cat-label">Kategoria 02</div>
+        <div class="cat-name">Pielęgnacja twarzy</div>
+        <div class="cat-desc">Organiczne kremy, olejki i serum dla dorosłych. Skład sprawdzony.</div>
       </div>
     </div>
-  </section>
 
-  <!-- FEATURES -->
-  <section class="features">
-    <div class="features-header">
-      <h2>Dlaczego EcoConceptStore?</h2>
-      <p>Bo skład kosmetyków to nie powinna być zagadka kryminalna</p>
-    </div>
-    <div class="features-grid">
-      <div class="feature-item">
-        <div class="feature-icon fi-green">🌿</div>
-        <h3>Certyfikowane składniki</h3>
-        <p>Tylko producenci z UE z pełną dokumentacją. Każdy składnik z potwierdzonym pochodzeniem.</p>
+    <div class="cat-card cat-3">
+      <div class="cat-visual">
+        <svg viewBox="0 0 80 80" fill="none">
+          <path d="M40 14 C40 14 20 28 20 46 C20 58 28 66 40 66 C52 66 60 58 60 46 C60 28 40 14 40 14Z" fill="#b8736a" opacity="0.2"/>
+          <path d="M40 14 C40 14 20 28 20 46 C20 58 28 66 40 66 C52 66 60 58 60 46 C60 28 40 14 40 14Z" stroke="#b8736a" stroke-width="1.5" fill="none"/>
+          <path d="M40 20 L40 60" stroke="#b8736a" stroke-width="1" opacity="0.35"/>
+        </svg>
       </div>
-      <div class="feature-item">
-        <div class="feature-icon fi-blue">🧒</div>
-        <h3>Bezpieczne dla dzieci</h3>
-        <p>Zero SLS, parabenów, sztucznych zapachów. Pełna lista INCI przy każdym produkcie.</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon fi-musk">✦</div>
-        <h3>Transparentny skład</h3>
-        <p>Mówimy wprost co jest w środku i dlaczego. Bez ukrytych składników, bez greenwashingu.</p>
+      <div class="cat-body">
+        <div class="cat-label">Kategoria 03</div>
+        <div class="cat-name">Pielęgnacja ciała</div>
+        <div class="cat-desc">Balsamy, olejki i scrub-y dla mam. Bo Twoja skóra też zasługuje na organik.</div>
       </div>
     </div>
-  </section>
 
-  <!-- STORY -->
-  <section class="story">
-    <div class="story-visual">
-      <div class="story-quote">
-        "Zaczęłam szukać bezpiecznych kosmetyków dla mojego dziecka — i nie mogłam znaleźć nic, czemu mogłabym w pełni zaufać."
+    <div class="cat-card cat-4">
+      <div class="cat-visual">
+        <svg viewBox="0 0 80 80" fill="none">
+          <rect x="22" y="22" width="36" height="36" rx="2" fill="none" stroke="#6d8c5a" stroke-width="1.5"/>
+          <path d="M22 34 L58 34" stroke="#6d8c5a" stroke-width="1" opacity="0.4"/>
+          <path d="M22 46 L58 46" stroke="#6d8c5a" stroke-width="1" opacity="0.4"/>
+          <circle cx="40" cy="18" r="4" fill="none" stroke="#6d8c5a" stroke-width="1.5"/>
+          <path d="M38 18 L38 22 M42 18 L42 22" stroke="#6d8c5a" stroke-width="1" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="cat-body">
+        <div class="cat-label">Kategoria 04</div>
+        <div class="cat-name">Dom i pranie</div>
+        <div class="cat-desc">Ekologiczne środki czystości. Bezpieczne dla dzieci, skuteczne dla domu.</div>
       </div>
     </div>
-    <div class="story-text">
-      <h2>Historia, która stoi za marką</h2>
-      <p>
-        EcoConceptStore powstał z frustracji. Przeglądanie składów, porównywanie certyfikatów,
-        szukanie rzetelnych producentów — to zajmuje godziny. I nie powinno.
-      </p>
-      <p>
-        Postanowiliśmy zrobić to za Was. <span class="highlight">Weryfikujemy producentów, sprawdzamy dokumentację
-        i dobieramy produkty, za które możemy ręczyć.</span> Żebyście Wy nie musieli.
-      </p>
-      <p>
-        Każdy produkt w naszym sklepie przeszedł przez nasze ręce — dosłownie.
-      </p>
+  </div>
+</section>
+
+<!-- NEWSLETTER STRIP -->
+<section class="nl-strip" id="newsletter">
+  <div class="nl-copy">
+    <div class="tag">Newsletter EcoConcept</div>
+    <h2>
+      Składy, których<br>
+      nie znasz.<br>
+      <em>Nowości, zanim</em><br>
+      trafi na Insta.
+    </h2>
+    <p>
+      Każdy tydzień: jeden temat, jeden składnik pod lupą, jedna rekomendacja.
+      Żadnego spamu. Tylko to, co warto wiedzieć przed kolejnymi zakupami.
+    </p>
+  </div>
+
+  <div class="nl-form-wrap">
+    <div class="nl-perks">
+      <div class="perk">
+        <div class="perk-icon">↓</div>
+        <span><strong style="color:rgba(255,255,255,0.9)">Darmowy przewodnik od razu</strong> — 15 składników, których unikamy w każdym produkcie</span>
+      </div>
+      <div class="perk">
+        <div class="perk-icon">✓</div>
+        <span>Wczesny dostęp do nowych produktów zanim trafią do sklepu</span>
+      </div>
+      <div class="perk">
+        <div class="perk-icon">◈</div>
+        <span>Tygodniowe analizy składów popularnych produktów z rynku</span>
+      </div>
+      <div class="perk">
+        <div class="perk-icon">%</div>
+        <span>Ekskluzywne rabaty tylko dla subskrybentów newslettera</span>
+      </div>
     </div>
-  </section>
 
-  <!-- BOTTOM CTA -->
-  <section class="bottom-cta">
-    <h2>Gotowa/y na czysty skład?</h2>
-    <p>Zapisz się i dowiedz się o premierze przed wszystkimi innymi.</p>
-    <div class="cta-form">
-      <input type="email" id="cta-email" placeholder="Twój adres email">
-      <!-- ZAMIEŃ na swój link Mailerlite -->
-      <button onclick="handleCTASignup()">Zapisuję się</button>
+    <div class="nl-input-row">
+      <input
+        type="email"
+        class="nl-input"
+        id="nlEmail"
+        placeholder="Twój adres email"
+        autocomplete="email"
+      />
+      <button class="nl-btn" id="nlBtn" onclick="submitNl()">Zapisuję się →</button>
     </div>
-  </section>
+    <div class="nl-msg" id="nlMsg"></div>
+    <div class="nl-note">Bez spamu. Rezygnacja jednym kliknięciem. Ochrona danych zgodna z RODO.</div>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="f-logo">ECOCONCEPTSTORE</div>
-    <p>© 2026 EcoConceptStore. Wszelkie prawa zastrzeżone.</p>
-    <a href="mailto:office@ecoconceptstore.com">office@ecoconceptstore.com</a>
-  </footer>
+<!-- FOOTER -->
+<footer id="kontakt">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="data:image/png;base64,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" alt="EcoConcept Store">
+      <p>Organiczne, certyfikowane, ręcznie selekcjonowane produkty dla Ciebie i Twoich dzieci. Każdy skład sprawdzony.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Nawigacja</h4>
+      <ul>
+        <li><a href="#filozofia">Nasza filozofia</a></li>
+        <li><a href="#kategorie">Produkty</a></li>
+        <li><a href="#newsletter">Newsletter</a></li>
+        <li><a href="#">O nas</a></li>
+        <li><a href="#">Kontakt</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Prawne</h4>
+      <ul>
+        <li><a href="#">Polityka prywatności</a></li>
+        <li><a href="#">Regulamin sklepu</a></li>
+        <li><a href="#">Polityka zwrotów</a></li>
+        <li><a href="#">Cookies</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 EcoConcept Store. Wszelkie prawa zastrzeżone.</span>
+    <div class="ai-note">
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+        <circle cx="5" cy="5" r="4" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+        <circle cx="5" cy="5" r="1.5" fill="rgba(255,255,255,0.4)"/>
+      </svg>
+      Marta, twarz marki, jest postacią AI
+    </div>
+  </div>
+</footer>
 
-  <script>
-    // TYMCZASOWA LOGIKA - zamień na embed Mailerlite
-    function handleSignup(e) {
-      e.preventDefault();
-      const btn = e.target;
-      btn.textContent = '✓ Zapisana/y!';
-      btn.style.background = '#4A7FB5';
-      // TU WSTAW: integrację z Mailerlite API lub przekierowanie na formularz
-      // Przykład: window.location.href = 'https://landing.mailerlite.com/twoj-link';
+<script>
+  // ── NAV SCROLL EFFECT ──
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // ── BEEHIIV CONFIG ──
+  // Zastąp poniższe wartości danymi z Twojego konta Beehiiv
+  // Dashboard → Settings → API → Publication ID
+  const BEEHIIV_PUB_ID  = 'TWOJE_PUBLICATION_ID';   // np. pub_xxxxxxxxxx
+  const BEEHIIV_API_KEY = 'TWOJ_API_KEY';            // Settings → API Keys
+
+  async function subscribeEmail(email, btnEl, msgEl) {
+    if (!email || !email.includes('@')) {
+      showMsg(msgEl, 'Podaj poprawny adres email.', 'err');
+      return;
     }
 
-    function handleCTASignup() {
-      const email = document.getElementById('cta-email').value;
-      if (!email) return;
-      alert('Dziękujemy! Damy znać jak tylko ruszymy.');
-      // TU WSTAW: integrację z Mailerlite
-    }
+    btnEl.disabled = true;
+    const origText = btnEl.textContent;
+    btnEl.textContent = '...';
 
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        e.preventDefault();
-        document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
-      });
+    try {
+      // Opcja A: Bezpośrednie API Beehiiv (wymaga proxy lub CORS-proxy)
+      const res = await fetch(
+        `https://api.beehiiv.com/v2/publications/${BEEHIIV_PUB_ID}/subscriptions`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${BEEHIIV_API_KEY}`
+          },
+          body: JSON.stringify({
+            email: email,
+            reactivate_existing: true,
+            send_welcome_email: true
+          })
+        }
+      );
+
+      if (res.ok || res.status === 201) {
+        showMsg(msgEl, '✓ Świetnie! Sprawdź skrzynkę — przewodnik już leci.', 'ok');
+        btnEl.textContent = '✓ Zapisano';
+      } else {
+        // Fallback: redirect do strony Beehiiv z email pre-filled
+        fallbackRedirect(email);
+        showMsg(msgEl, '✓ Zapisano! Za chwilę zostaniesz przekierowana.', 'ok');
+      }
+    } catch(e) {
+      // Jeśli API niedostępne z przeglądarki (CORS) — fallback redirect
+      fallbackRedirect(email);
+      showMsg(msgEl, '✓ Gotowe! Sprawdź swoją skrzynkę za chwilę.', 'ok');
+    } finally {
+      setTimeout(() => {
+        btnEl.disabled = false;
+        if (btnEl.textContent === '...') btnEl.textContent = origText;
+      }, 3000);
+    }
+  }
+
+  function fallbackRedirect(email) {
+    // Zastąp URL swoją subdomeną Beehiiv
+    const beehiivUrl = `https://ecoconceptstore.beehiiv.com/subscribe?email=${encodeURIComponent(email)}`;
+    window.open(beehiivUrl, '_blank');
+  }
+
+  function showMsg(el, text, type) {
+    el.textContent = text;
+    el.className = 'msg ' + type;
+    if (el.id === 'nlMsg') el.className = 'nl-msg ' + type;
+    el.style.display = 'block';
+  }
+
+  function submitHero() {
+    const email = document.getElementById('heroEmail').value.trim();
+    subscribeEmail(email, document.getElementById('heroBtn'), document.getElementById('heroMsg'));
+  }
+
+  function submitNl() {
+    const email = document.getElementById('nlEmail').value.trim();
+    subscribeEmail(email, document.getElementById('nlBtn'), document.getElementById('nlMsg'));
+  }
+
+  // Enter key support
+  document.getElementById('heroEmail').addEventListener('keydown', e => {
+    if (e.key === 'Enter') submitHero();
+  });
+  document.getElementById('nlEmail').addEventListener('keydown', e => {
+    if (e.key === 'Enter') submitNl();
+  });
+
+  // ── INTERSECTION OBSERVER for scroll animations ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+        observer.unobserve(e.target);
+      }
     });
-  </script>
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
+  document.querySelectorAll('.pillar, .cat-card, .about-content, .stat-val').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
 </body>
 </html>
